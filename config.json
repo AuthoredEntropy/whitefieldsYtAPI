@@ -1,0 +1,37 @@
+{
+    "enableBotIntegration":true,
+    "botSettings":{
+        "botToken":"NDgwMjM1MDY5ODEwNjcxNjE5.W3ejwg.mdzLHAJISiiObbu4bE7IbjcndWA"
+    },
+    "defaultPath": "",
+    "darkBgClr": "#545454",
+    "bgClr": "#adadad",
+    "offClr": "#b5b5b5",
+    "highlightClr": "#c4c4c4",
+    "higherLightClr": "#d9d9d9",
+    "PHBClr": "#ffe8cf",
+    "newMonsterSpacing": 3,
+    "speedSpacing": 3,
+    "diceAndDmgTypes": {
+        "diceTypes": ["d2","d4","d6","d8","d10","d12","d20","d100"],
+        "dmgTypes": ["slashing","bludgeoning","piercing","fire","cold/frost","lightning","acid","force","necrotic","poison","psychic","radiant","thunder","true damage"]
+    },
+    "fonts": {
+        "body":"Bookmania",
+        "headers": "Mr. Eaves Small Caps",
+        "mon":"Scaly Sans",
+        "subTitles":"Nodesto Caps Condensed"
+    },
+    "fontClrs": {
+        "red": "#520500",
+        "grey": "#474747"
+    },
+    "keyCombos":{
+        "addD20MString":[""]
+    },
+    "subPaths":{
+        "savePaths":{
+            "diceRollers":"\\saves\\diceRollers\\"
+        }
+    }
+}
