@@ -1,0 +1,12 @@
+{
+    "defaultDescription": "default desc",
+    "defaultTitle": "default title",
+    "defaultFirstServiceStartTime": "17:30",
+    "defaultSecondServiceStartTime": "18:30",
+    "defaultFirstServiceEndTime": "18:00",
+    "defaultSecondServiceEndTime": "19:30",
+    "defaultPrivacySetting": "unlisted",
+    "whiteFieldsAltNames": ["White Fields Community Church", "White Fields CC", "WFCC"],
+    "ytTitleMaxLength": 100,
+    "allowedTimes": ["6:00","6:30","7:00","7:30","8:00","8:30","9:00","9:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30"]
+}
