@@ -149,7 +149,9 @@ def deleteStreams():
     if answer:
         yt.deleteLive(credentials,id1)
         yt.deleteLive(credentials,id2)
-    
+def logout():
+    os.remove("token.pickle")
+    exit(0)
 def assembleGUI(root):
     frame = tk.Frame(root)
     spacerl = tkb.addHorizontalSpacer(frame,10)
@@ -200,7 +202,7 @@ def assembleGUI(root):
     deleteLiveBtn = tk.Button(btnFrame,width=25,height=3,text="delete live streams", command=deleteStreams)
     deleteLiveBtn.pack(side="top",anchor="w")
     spacerh3 = tkb.addVerticalSpacer(btnFrame,5)
-    autoLiveBtn = tk.Button(btnFrame,width=25,height=3,text="Auto Publicize Streams: Off")
+    autoLiveBtn = tk.Button(btnFrame,width=25,height=3,text="Logout", command=logout)
     autoLiveBtn.pack(side="top",anchor="w")
     titleFrame.pack(side="top",anchor="w")
     descriptionFrame.pack(side="top",anchor="w")
