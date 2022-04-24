@@ -28,7 +28,7 @@ if( os.path.exists('token.pickle')):
         
 # If there are no valid credentials available, then either refresh the token or log in.
 if not credentials or not credentials.valid:
-    if credentials and credentials.expired and credentials.refresh_token:
+    if credentials and not credentials.expired and credentials.refresh_token:
         print('Refreshing Access Token...')
         credentials.refresh(Request())
     else:

@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 #pickle filesx
-.pickle
+*.pickle
+*.pkl
