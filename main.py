@@ -40,7 +40,7 @@ def login(shouldAlert):
             credentials.refresh(Request())
         else:
             print('Fetching New Tokens...')
-            tk.messagebox.showinfo("Follow the prompts in you browser",  "To log in, close this message and then follow the directions in the browser window \n to sign in with your google account.")
+            tk.messagebox.showinfo("Follow the prompts in you browser",  "To log in, close this message and then follow the directions in the browser window to sign in with your google account.")
             flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
                 'client_secret_246499621476-2gqk0ubjch8stn32p9rnnlkgieqo6bds.apps.googleusercontent.com.json',
                 scopes=["https://www.googleapis.com/auth/youtube.force-ssl"]
