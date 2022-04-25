@@ -19,35 +19,45 @@ def returnConfig():
 scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 userConfig = returnConfig()
 client_secrets_file = "client_secret_246499621476-2gqk0ubjch8stn32p9rnnlkgieqo6bds.apps.googleusercontent.com.json"
-
+isLoggedIn = False
 credentials = None
-if( os.path.exists('token.pickle')):
-    print("Loading Credentials From File")
-    with open('token.pickle', 'rb') as token:
-        credentials = pickle.load(token)
-        
-# If there are no valid credentials available, then either refresh the token or log in.
-if not credentials or not credentials.valid:
-    if credentials and not credentials.expired and credentials.refresh_token:
-        print('Refreshing Access Token...')
-        credentials.refresh(Request())
-    else:
-        print('Fetching New Tokens...')
-        flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
-            'client_secret_246499621476-2gqk0ubjch8stn32p9rnnlkgieqo6bds.apps.googleusercontent.com.json',
-            scopes=["https://www.googleapis.com/auth/youtube.force-ssl"]
-        )
-
-        flow.run_local_server(port=8080, prompt='consent',
-                              authorization_prompt_message='')
-        credentials = flow.credentials
-
-        # Save the credentials for the next run
-        with open('token.pickle', 'wb') as f:
-            print('Saving Credentials for Future Use...')
-            pickle.dump(credentials, f)
+def login(shouldAlert):
+    global credentials
+    global isLoggedIn
+    if(isLoggedIn == True):
+        tk.messagebox.showinfo("You are already logged in",  "you are already logged in to youtube's servers.")
+        return
+    isLoggedIn = True
+    if( os.path.exists('token.pickle')):
+        print("Loading Credentials From File")
+        with open('token.pickle', 'rb') as token:
+            credentials = pickle.load(token)
             
+    # If there are no valid credentials available, then either refresh the token or log in.
+    if not credentials or not credentials.valid:
+        if credentials and not credentials.expired and credentials.refresh_token:
+            print('Refreshing Access Token...')
+            credentials.refresh(Request())
+        else:
+            print('Fetching New Tokens...')
+            tk.messagebox.showinfo("Follow the prompts in you browser",  "To log in, close this message and then follow the directions in the browser window \n to sign in with your google account.")
+            flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
+                'client_secret_246499621476-2gqk0ubjch8stn32p9rnnlkgieqo6bds.apps.googleusercontent.com.json',
+                scopes=["https://www.googleapis.com/auth/youtube.force-ssl"]
+            )
+
+            flow.run_local_server(port=8080, prompt='consent',
+                                authorization_prompt_message='')
+            credentials = flow.credentials
+
+            # Save the credentials for the next run
+            with open('token.pickle', 'wb') as f:
+                print('Saving Credentials for Future Use...')
+                pickle.dump(credentials, f)
+    if(shouldAlert):
+        tk.messagebox.showinfo("Successfully logged in",  "Successfully logged into youtube servers")
 def main():
+    login(False)
     root = tk.Tk()
     root.title("White Field's Church Youtube Interface")
     root.geometry("850x500")
@@ -150,8 +160,16 @@ def deleteStreams():
         yt.deleteLive(credentials,id1)
         yt.deleteLive(credentials,id2)
 def logout():
+    global credentials
+    global isLoggedIn
+    if(isLoggedIn == False):
+        tk.messagebox.showinfo("You are already logged out",  "you are already logged out of youtube's servers.")
+        return
+    
+    tk.messagebox.showinfo("Successfully logged out",  "you have logged out successfully")
     os.remove("token.pickle")
-    exit(0)
+    isLoggedIn = False
+    credentials = None
 def assembleGUI(root):
     frame = tk.Frame(root)
     spacerl = tkb.addHorizontalSpacer(frame,10)
@@ -202,8 +220,10 @@ def assembleGUI(root):
     deleteLiveBtn = tk.Button(btnFrame,width=25,height=3,text="delete live streams", command=deleteStreams)
     deleteLiveBtn.pack(side="top",anchor="w")
     spacerh3 = tkb.addVerticalSpacer(btnFrame,5)
-    autoLiveBtn = tk.Button(btnFrame,width=25,height=3,text="Logout", command=logout)
-    autoLiveBtn.pack(side="top",anchor="w")
+    logoutBtn = tk.Button(btnFrame,width=25,height=3,text="Logout", command=logout)
+    logoutBtn.pack(side="top",anchor="w")
+    loginBtn = tk.Button(btnFrame,width=25,height=3,text="Login", command=lambda: login(True))
+    loginBtn.pack(side="top",anchor="w")
     titleFrame.pack(side="top",anchor="w")
     descriptionFrame.pack(side="top",anchor="w")
     startTimeFrame.pack(side="top",anchor="w")
